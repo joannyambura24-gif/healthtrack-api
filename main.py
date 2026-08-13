@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import select
 
-from database.session import create_db_and_tables, get_session
+from database import create_db, get_session
 from sqlmodel import Session
 
 from models.user import User, UserCreate, UserResponse
@@ -20,7 +20,7 @@ app = FastAPI(title="HealthTrack API")
 
 @app.on_event("startup")
 def startup():
-    create_db_and_tables()
+    create_db()
 
 
 @app.post("/register", response_model=UserResponse)
